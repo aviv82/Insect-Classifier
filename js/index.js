@@ -12,17 +12,15 @@ startBtn.addEventListener("click", () => {
     " ok! first of all, let's see if your specimen is even an insect <br/>at all, or another type of arthropod. <br /><br />How many legs does it have (please type number)?";
 });
 
-let legNumber = userInput.value;
-let sixLegs = false;
-
-if (legNumber == "six") {
-  sixLegs = true;
-}
-
 userBtn.addEventListener("click", () => {
-  if (sixLegs) {
-    message.innerHTML = "great!";
+  let legNumber = userInput.value;
+
+  if (legNumber === "" || legNumber == null) {
+    message.innerHTML = "Please enter number of legs";
+  } else if (legNumber === "six" || legNumber == 6) {
+    message.innerHTML = "stellar! how many body parts does it have?";
   } else {
-    message.innerHTML = "stellar!";
+    message.innerHTML =
+      "Your specimen is not an insect. <br/> <br/>it is most likely another type of arthropod.";
   }
 });
