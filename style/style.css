@@ -1,4 +1,13 @@
-.first {
+.panel {
   color: blue;
   background-color: crimson;
+}
+
+.hide {
+  opacity: 0%;
+  transition: 400ms ease-in;
+}
+
+.show {
+  opacity: 100%;
 }
