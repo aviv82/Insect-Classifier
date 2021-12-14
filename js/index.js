@@ -1,5 +1,221 @@
 "use strict";
 
+/* ok ok so i made a webpage for classifying insects and incidentally it is full of Bugs... 
+this is a perfect opportunity for me to practice debugging, linting etc. 
+so i am going to leave two copies of the original code below, one with comments, one without
+and try to rewrite the whole thing - error free and with better cleaner syntax! let's go. */
+
+// original code, we can fix this:
+
+// intro section
+const startBtn = document.querySelector(".start");
+const panel = document.querySelector(".panel");
+let message = document.querySelector(".message");
+let userInput = document.querySelector(".user__input");
+
+startBtn.addEventListener("click", () => {
+  panel.classList.toggle("show");
+  message.innerHTML =
+    "ok! first of all, let's see if your specimen is even an insect <br/>at all, or another type of arthropod. <br /><br />How many legs does it have?";
+  console.log(
+    `reveal questionnaire
+      
+      "ok! first of all, let's see if your specimen is even an insect at all, or another type of arthropod. 
+      
+      How many legs does it have?"`
+  );
+});
+// intro section
+
+// questionnaire panel
+let firstBtn = document.querySelector(".first");
+let secondBtn = null;
+
+// first question line
+firstBtn.addEventListener("click", () => {
+  let legNumber = userInput.value;
+  let isLegs = false;
+
+  while (!isLegs) {
+    if (legNumber === "" || legNumber === null || legNumber === undefined) {
+      message.innerHTML = "Please enter number of legs";
+      console.log(
+        "blank reply for number of legs" + " - Please enter number of legs"
+      );
+      isLegs = true;
+    } else if (
+      legNumber === "Six" ||
+      legNumber === "six" ||
+      legNumber === "6"
+    ) {
+      message.innerHTML = "stellar! <br/>how many body joints does it have?";
+      console.log(legNumber + " - stellar! how many body joints does it have?");
+      isLegs = true;
+      firstBtn.classList.toggle("second");
+      break;
+    } else {
+      message.innerHTML =
+        "Your specimen is not an insect. <br/> <br/>it is most likely another type of arthropod.";
+      console.log(
+        legNumber +
+          " - Your specimen is not an insect. it is most likely another type of arthropod."
+      );
+      isLegs = true;
+    }
+  }
+  // end of first question line
+  secondBtn = document.querySelector(".second");
+  // second question line
+  secondBtn.addEventListener("click", () => {
+    let bodyNumber = userInput.value;
+    let isBody = false;
+    while (!isBody) {
+      if (
+        bodyNumber === "" ||
+        bodyNumber === null ||
+        bodyNumber === undefined
+      ) {
+        message.innerHTML = "Please enter number of body joints";
+        console.log(
+          "blank reply for number of body parts" +
+            " - Please enter number of body joints"
+        );
+        isBody = true;
+      } else if (
+        bodyNumber === "Three" ||
+        bodyNumber === "three" ||
+        bodyNumber === "3"
+      ) {
+        message.innerHTML =
+          "Amazing! <br/> Your specimen is an insect for sure! Now we can start classifying what type of insect <br/><br/>does your specimen have wings?";
+        console.log(
+          bodyNumber +
+            " - Amazing! Your specimen is an insect for sure! Now we can start classifying what type of insect - does your specimen have wings?"
+        );
+        isBody = true;
+      } else {
+        message.innerHTML =
+          "Your specimen is not an insect. <br/> <br/>it is most likely another type of arthropod.";
+        console.log(
+          bodyNumber +
+            " - Your specimen is not an insect. it is most likely another type of arthropod."
+        );
+        isBody = true;
+      }
+    }
+  });
+});
+// end of second question line
+// questionnaire panel
+
+// first copy of original; no comments for easy run comparison:
+
+/*
+// intro section
+const startBtn = document.querySelector(".start");
+const panel = document.querySelector(".panel");
+let message = document.querySelector(".message");
+let userInput = document.querySelector(".user__input");
+
+startBtn.addEventListener("click", () => {
+  panel.classList.toggle("show");
+  message.innerHTML =
+    "ok! first of all, let's see if your specimen is even an insect <br/>at all, or another type of arthropod. <br /><br />How many legs does it have?";
+  console.log(
+    `reveal questionnaire
+      
+      "ok! first of all, let's see if your specimen is even an insect at all, or another type of arthropod. 
+      
+      How many legs does it have?"`
+  );
+});
+// intro section
+
+// questionnaire panel
+let firstBtn = document.querySelector(".first");
+let secondBtn = null;
+
+// first question line
+firstBtn.addEventListener("click", () => {
+  let legNumber = userInput.value;
+  let isLegs = false;
+
+  while (!isLegs) {
+    if (legNumber === "" || legNumber === null || legNumber === undefined) {
+      message.innerHTML = "Please enter number of legs";
+      console.log(
+        "blank reply for number of legs" + " - Please enter number of legs"
+      );
+      isLegs = true;
+    } else if (
+      legNumber === "Six" ||
+      legNumber === "six" ||
+      legNumber === "6"
+    ) {
+      message.innerHTML = "stellar! <br/>how many body joints does it have?";
+      console.log(legNumber + " - stellar! how many body joints does it have?");
+      isLegs = true;
+      firstBtn.classList.toggle("second");
+      break;
+    } else {
+      message.innerHTML =
+        "Your specimen is not an insect. <br/> <br/>it is most likely another type of arthropod.";
+      console.log(
+        legNumber +
+          " - Your specimen is not an insect. it is most likely another type of arthropod."
+      );
+      isLegs = true;
+    }
+  }
+  // end of first question line
+  secondBtn = document.querySelector(".second");
+  // second question line
+  secondBtn.addEventListener("click", () => {
+    let bodyNumber = userInput.value;
+    let isBody = false;
+    while (!isBody) {
+      if (
+        bodyNumber === "" ||
+        bodyNumber === null ||
+        bodyNumber === undefined
+      ) {
+        message.innerHTML = "Please enter number of body joints";
+        console.log(
+          "blank reply for number of body parts" +
+            " - Please enter number of body joints"
+        );
+        isBody = true;
+      } else if (
+        bodyNumber === "Three" ||
+        bodyNumber === "three" ||
+        bodyNumber === "3"
+      ) {
+        message.innerHTML =
+          "Amazing! <br/> Your specimen is an insect for sure! Now we can start classifying what type of insect <br/><br/>does your specimen have wings?";
+        console.log(
+          bodyNumber +
+            " - Amazing! Your specimen is an insect for sure! Now we can start classifying what type of insect - does your specimen have wings?"
+        );
+        isBody = true;
+      } else {
+        message.innerHTML =
+          "Your specimen is not an insect. <br/> <br/>it is most likely another type of arthropod.";
+        console.log(
+          bodyNumber +
+            " - Your specimen is not an insect. it is most likely another type of arthropod."
+        );
+        isBody = true;
+      }
+    }
+  });
+});
+// end of second question line
+// questionnaire panel
+*/
+
+// second copy of original; with comments, for posterity!:
+
+/* 
 // intro section
 // declare and assign constants for start button and questionnaire panel div
 const startBtn = document.querySelector(".start");
@@ -144,4 +360,4 @@ firstBtn.addEventListener("click", () => {
   });
 });
 // end of second question line
-// questionnaire panel
+// questionnaire panel */
