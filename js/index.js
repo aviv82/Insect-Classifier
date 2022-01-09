@@ -1,112 +1,50 @@
 "use strict";
 
 /* ok ok so i made a webpage for classifying insects and incidentally it is full of Bugs... 
-this is a perfect opportunity for me to practice debugging, linting etc. 
+this is a perfect opportunity to practice debugging, linting etc. 
 so i am going to leave two copies of the original code below, one with comments, one without
 and try to rewrite the whole thing - error free and with better cleaner syntax! let's go. */
 
-// original code, we can fix this:
+// ok lets start from scratch give myself a simple task. make a button change tags without causing errors...
 
 // intro section
-const startBtn = document.querySelector(".start");
-const panel = document.querySelector(".panel");
-let message = document.querySelector(".message");
-let userInput = document.querySelector(".user__input");
+// this is the page load up; contains a short description for user and a start button to begin questionnaire
 
+const startBtn = document.querySelector(".start"); // declare first button. so far so good
+const panel = document.querySelector(".panel"); // declare questionnaire panel
+let message = document.querySelector(".message"); // declare message paragraph for user instructions
+
+// the event listener below will reveal the questionnaire to the user
 startBtn.addEventListener("click", () => {
-  panel.classList.toggle("show");
+  // create and call function on first button click
+  panel.classList.replace("hide", "show"); // replace panel tag to reveal questionnaire
   message.innerHTML =
     "ok! first of all, let's see if your specimen is even an insect <br/>at all, or another type of arthropod. <br /><br />How many legs does it have?";
+  // change message to reveal first question set to user
   console.log(
-    `reveal questionnaire
-      
-      "ok! first of all, let's see if your specimen is even an insect at all, or another type of arthropod. 
-      
-      How many legs does it have?"`
-  );
+    "first button pressed;\n",
+    "reveal questionnaire;\n",
+    "reveal first question;"
+  ); // log events to console
 });
-// intro section
 
-// questionnaire panel
+// end of intro section
+
+// start of questionnaire section
+
+// good. that was the easy part. user can now see the first question and input an answer using the input box and first user button
+// this reminds me. we should declare the user button to a variable...
+
 let firstBtn = document.querySelector(".first");
-let secondBtn = null;
+// in previous attempts this was where i declared the second button as well
+// i think this time i'll wait. see if i can create a separate block for each line of questions
 
-// first question line
+// right. lets create the event listener for the first user input
 firstBtn.addEventListener("click", () => {
-  let legNumber = userInput.value;
-  let isLegs = false;
-
-  while (!isLegs) {
-    if (legNumber === "" || legNumber === null || legNumber === undefined) {
-      message.innerHTML = "Please enter number of legs";
-      console.log(
-        "blank reply for number of legs" + " - Please enter number of legs"
-      );
-      isLegs = true;
-    } else if (
-      legNumber === "Six" ||
-      legNumber === "six" ||
-      legNumber === "6"
-    ) {
-      message.innerHTML = "stellar! <br/>how many body joints does it have?";
-      console.log(legNumber + " - stellar! how many body joints does it have?");
-      isLegs = true;
-      firstBtn.classList.toggle("second");
-      break;
-    } else {
-      message.innerHTML =
-        "Your specimen is not an insect. <br/> <br/>it is most likely another type of arthropod.";
-      console.log(
-        legNumber +
-          " - Your specimen is not an insect. it is most likely another type of arthropod."
-      );
-      isLegs = true;
-    }
-  }
-  // end of first question line
-  secondBtn = document.querySelector(".second");
-  // second question line
-  secondBtn.addEventListener("click", () => {
-    let bodyNumber = userInput.value;
-    let isBody = false;
-    while (!isBody) {
-      if (
-        bodyNumber === "" ||
-        bodyNumber === null ||
-        bodyNumber === undefined
-      ) {
-        message.innerHTML = "Please enter number of body joints";
-        console.log(
-          "blank reply for number of body parts" +
-            " - Please enter number of body joints"
-        );
-        isBody = true;
-      } else if (
-        bodyNumber === "Three" ||
-        bodyNumber === "three" ||
-        bodyNumber === "3"
-      ) {
-        message.innerHTML =
-          "Amazing! <br/> Your specimen is an insect for sure! Now we can start classifying what type of insect <br/><br/>does your specimen have wings?";
-        console.log(
-          bodyNumber +
-            " - Amazing! Your specimen is an insect for sure! Now we can start classifying what type of insect - does your specimen have wings?"
-        );
-        isBody = true;
-      } else {
-        message.innerHTML =
-          "Your specimen is not an insect. <br/> <br/>it is most likely another type of arthropod.";
-        console.log(
-          bodyNumber +
-            " - Your specimen is not an insect. it is most likely another type of arthropod."
-        );
-        isBody = true;
-      }
-    }
-  });
+  console.log("first question input;"); // log to console
 });
-// end of second question line
-// questionnaire panel
+
+// end of questionnaire section
 
 // first copy of original; no comments for easy run comparison:
 
