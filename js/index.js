@@ -40,8 +40,8 @@ startBtn.addEventListener("click", () => {
 // this time i will have a global button for changing classes and separate buttons for the different question lines
 // these will be assigned to 'fist', 'second' etc.
 
-let userBtn = document.querySelector(".user__btn"); // assign 'global' user button
-let userBtn1 = document.querySelector(".first"); // assign first question user button
+let userBtn = document.querySelector(".user__btn"); // declare 'global' user button
+let userBtn1 = document.querySelector(".first"); // declare first question user button
 let userInput = document.querySelector(".user__input"); // declare user input
 
 // first question
@@ -89,8 +89,10 @@ userBtn1.addEventListener("click", () => {
 
 // second question
 
-// start by reassigning the user button to the modified 'second' class
-let userBtn2 = document.querySelector(".second");
+// start by declaring the 2nd user button to the modified 'second' class
+
+let userBtn2 = document.querySelector(".second"); // declare second question user button
+
 // end of second question
 
 // end of questionnaire section
