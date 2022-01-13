@@ -37,18 +37,20 @@ startBtn.addEventListener("click", () => {
 
 // in previous attempts i tried to assign one global user button to 'first'
 // that did not work and caused errors
-// this time i will have a global button for changing classes and separate buttons for the different question lines
+
+// after some experimentation i now believe is should change the class of the input box ie. userInput not the buttons
+
+// i will have a global (userBtn) button and change the class of the input box (userInput) for the different question lines
 // these will be assigned to 'fist', 'second' etc.
 
 let userBtn = document.querySelector(".user__btn"); // declare 'global' user button
-let userBtn1 = document.querySelector(".first"); // declare first question user button
-let userInput = document.querySelector(".user__input"); // declare user input
+let userInput1 = document.querySelector(".first"); // declare user input
 
 // first question
 
 // right. lets create the event listener for the first user input
-userBtn1.addEventListener("click", () => {
-  let legNumber = userInput.value; // declare variable for leg number
+userBtn.addEventListener("click", () => {
+  let legNumber = userInput1.value; // declare variable for leg number
   // previously i used a while loop here to determine leg number.
   // i dont think it is necessary anymore. i am going to try and just use an if conditional instead
   if (legNumber === null || legNumber === "" || legNumber === undefined) {
@@ -59,16 +61,19 @@ userBtn1.addEventListener("click", () => {
       "user input void;\n",
       "prompt user to enter valid input"
     ); // log to console
+    return;
   } else if (legNumber === "6" || legNumber === "six" || legNumber === "Six") {
     // set condition for insect user input
-    message.innerHTML = "stellar! <br/>how many body joints does it have?"; // message second question to user
+    message.innerHTML = "stellar! <br/>how many body joints does it have?";
+    // message second question to user
     console.log(
       "first question input:\n",
       "user input is insect;\n",
       "message user and reveal 2nd question"
     ); // log to console
-    userBtn.classList.replace("first", "second"); // toggle 'global' user button for 2nd question
-    return (userBtn1 = ""); // reassign first user button and exit first question
+    userInput1.classList.replace("first", "second"); // change class for input box
+    userInput1 = ""; // reassign userInput1 to empty string
+    return;
   } else {
     // set condition for not insect user input
     console.log(
@@ -76,14 +81,12 @@ userBtn1.addEventListener("click", () => {
       "user input is not insect;\n",
       "message user and reset"
     ); // log to console
-    return (message.innerHTML =
-      "Your specimen is not an insect. <br/> <br/>it is most likely another type of arthropod. <br/> <br/> try again?");
-    // message user and exit out of first question
+    message.innerHTML =
+      "Your specimen is not an insect. <br/> <br/>it is most likely another type of arthropod. <br/> <br/> try again?";
+    // message user
+    return;
   }
 });
-
-// end of first question
-
 // great. so that worked out much better than the first attempt. no bugs so far ;)
 // now to create the second question with the reassigned user button class
 
@@ -91,7 +94,7 @@ userBtn1.addEventListener("click", () => {
 
 // start by declaring the 2nd user button to the modified 'second' class
 
-let userBtn2 = document.querySelector(".second"); // declare second question user button
+let userInput2 = document.querySelector(".second"); // declare second question user input
 
 // end of second question
 
