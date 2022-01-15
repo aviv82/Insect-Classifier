@@ -45,12 +45,15 @@ startBtn.addEventListener("click", () => {
 
 let userBtn = document.querySelector(".user__btn"); // declare 'global' user button
 let userInput1 = document.querySelector(".first"); // declare user input
+let legNumber = "";
+let isLegs = false;
+let userInput2 = document.querySelector(".second"); // declare second question user input
 
 // first question
-
 // right. lets create the event listener for the first user input
+
 userBtn.addEventListener("click", () => {
-  let legNumber = userInput1.value; // declare variable for leg number
+  legNumber = userInput1.value; // declare variable for leg number
   // previously i used a while loop here to determine leg number.
   // i dont think it is necessary anymore. i am going to try and just use an if conditional instead
   if (legNumber === null || legNumber === "" || legNumber === undefined) {
@@ -61,7 +64,6 @@ userBtn.addEventListener("click", () => {
       "user input void;\n",
       "prompt user to enter valid input"
     ); // log to console
-    return;
   } else if (legNumber === "6" || legNumber === "six" || legNumber === "Six") {
     // set condition for insect user input
     message.innerHTML = "stellar! <br/>how many body joints does it have?";
@@ -73,7 +75,7 @@ userBtn.addEventListener("click", () => {
     ); // log to console
     userInput1.classList.replace("first", "second"); // change class for input box
     userInput1 = ""; // reassign userInput1 to empty string
-    return;
+    isLegs = true;
   } else {
     // set condition for not insect user input
     console.log(
@@ -84,17 +86,35 @@ userBtn.addEventListener("click", () => {
     message.innerHTML =
       "Your specimen is not an insect. <br/> <br/>it is most likely another type of arthropod. <br/> <br/> try again?";
     // message user
-    return;
   }
+  return isLegs;
 });
 // great. so that worked out much better than the first attempt. no bugs so far ;)
 // now to create the second question with the reassigned user button class
 
 // second question
-
 // start by declaring the 2nd user button to the modified 'second' class
-
-let userInput2 = document.querySelector(".second"); // declare second question user input
+if (isLegs === true) {
+  userBtn.addEventListener("click", () => {
+    let bodyPart = userInput2;
+    if (bodyPart === null || bodyPart === "" || bodyPart === undefined) {
+      message.innerHTML = "Please enter number of body joints";
+      console.log(
+        "second question input:\n",
+        "user input void;\n",
+        "prompt user to enter valid input"
+      );
+    } else if (bodyPart === 3 || bodyPart === "three" || bodyPart === "Three") {
+      message.innerHTML =
+        "Amazing! <br/> Your specimen is an insect for sure! Now we can start classifying what type of insect <br/><br/>does your specimen have wings?";
+      console.log(
+        "second question input:\n",
+        "user input is insect;\n",
+        "message user is insect"
+      );
+    }
+  });
+}
 
 // end of second question
 
