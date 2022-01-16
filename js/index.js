@@ -1,5 +1,183 @@
 "use strict";
 
+//TAKE THREE
+
+/* ah well, so i tried to debug this page over the past few weeks but couldn't succeed.
+i think now that i got myself to bogged down in the idea of using the event listener and listening to clicks.
+i thought before i give this project a rest i will try one more time.
+this time around i will try a different approach. the intro section works well with the event listener 
+but for the actual body of the thing, the questionnaire i will try a different approach. */
+
+// intro section
+// this is the page load up; contains a short description for user and a start button to begin questionnaire
+
+const startBtn = document.querySelector(".start"); // declare first button. so far so good
+const panel = document.querySelector(".panel"); // declare questionnaire panel
+let message = document.querySelector(".message"); // declare message paragraph for user instructions
+
+// the event listener below will reveal the questionnaire to the user
+startBtn.addEventListener("click", () => {
+  // create and call function on first button click
+  panel.classList.replace("hide", "show"); // replace panel tag to reveal questionnaire
+  message.innerHTML =
+    "ok! first of all, let's see if your specimen is even an insect <br/>at all, or another type of arthropod. <br /><br />How many legs does it have?";
+  // change message to reveal first question set to user
+  console.log(
+    "first button pressed;\n",
+    "reveal questionnaire;\n",
+    "reveal first question;"
+  ); // log events to console
+});
+
+// end of intro section
+
+// start of questionnaire section
+
+/* ok so how to do this now? 
+in previous attempts i kept getting errors because my functions kept getting 'tangled' in each other.
+this time i want to separate them somehow, create a kind of function 'switch board'.
+i think this could be done either by using while loops, or by creating a function 'directory', 
+a master function to determine which function to call.
+*/
+
+// i start by declaring some global variables
+
+let userBtn = document.querySelector(".user__btn"); // declare global variable for user button
+let userInput = document.querySelector(".user__input"); // declare global variable for user input
+let input = ""; // declare global variable for input
+
+// the global variables below are my 'switches' boolean check point for the different questions in the questionnaire.
+// as the user goes through the questionnaire the switches will 'flick' on and off,
+// letting the master function know which question function to call next
+
+let isLeg = false; // declare global variable for first question - how many legs the arthropod has?
+let isBody = false; // declare global variable for second question - how many body parts arthropod has?
+
+// there will be more switches as the page develops but for now
+// between the two above questions we can determine if the arthropod is an insect or something else.
+
+// alright, its time to write a function for registering user clicks.
+// previously i used event listeners for this, but now i want to try using onclick
+
+userBtn.onclick = function () {
+  // declare user button 'click' event
+  input = userInput.value; // reassign input to the user input bar
+  console.log(input); // log input to console
+  return directory(); // call directory master function (see below)
+};
+
+// time to write the 'master' function, named 'directory'
+// basically a switch board function to determine which question function to call
+
+function directory() {
+  // declare directory function
+  if (isLeg === false) {
+    // set condition for first question using global boolean variable
+    first(); // call first question function if first condition is met
+  } else if (isBody === false) {
+    // set condition for second question using global boolean variable
+    second(); // call second question function if second condition is met
+  }
+}
+
+// not sure if this is an optimal way to work, but i like the 'switch board'
+// it is clean and clear to understand, and can easily be expanded/modified
+
+// with the directory function the hard part is done.
+// now all thats left is to write the question functions.
+// i think i am going to write them the same way i did so far
+// they work well. the only problem is when they get tangled together.
+
+function first() {
+  // declare first question function
+  let legNumber = input; // declare 'proxy' variable for input to leg number
+  // i dont know if the above step is necessary but in my mind it makes sense.
+  // i think its worthwhile to have an extra variable for the sake of better readability and clarity
+  if (legNumber === null || legNumber === "" || legNumber === undefined) {
+    // set condition for void input
+    message.innerHTML = "please enter number of legs"; // message user to enter valid input
+    console.log(
+      "first question input:\n",
+      "user input void;\n",
+      "prompt user to enter valid input"
+    ); // log to console
+  } else if (legNumber === "6" || legNumber === "six" || legNumber === "Six") {
+    // set condition for insect user input
+    message.innerHTML = "stellar! <br/>how many body joints does it have?";
+    // message insect and second question to user
+    console.log(
+      "first question input:\n",
+      "user input is insect;\n",
+      "message user and reveal 2nd question"
+    ); // log to console
+    isLeg = true; // reassign 'switch' boolean 'off' for first question
+    // this is the crucial step. if the user gives correct insect input they are ready to move on to the second question
+    // by reassigning the 'switch' boolean from false to true
+    // the condition for the first question will no longer be met in the function directory
+    // and it will call the second question function instead
+  } else {
+    // set condition for not insect user input
+    console.log(
+      "first question input:\n",
+      "user input is not insect;\n",
+      "message user and reset"
+    ); // log to console
+    message.innerHTML =
+      "Your specimen is not an insect. <br/> <br/>it is most likely another type of arthropod. <br/> <br/> try again?";
+    // message not insect to user
+  }
+  return isLeg; // return 'switch' boolean value
+}
+
+// good. now to write the second question function.
+// it would be almost identical to the first question function only with different variable names and values
+
+function second() {
+  // declare second question function
+  let bodyNumber = input; // declare 'proxy' variable for input to body part number
+  if (bodyNumber === null || bodyNumber === "" || bodyNumber === undefined) {
+    // set condition for void input
+    message.innerHTML = "Please enter number of body joints"; // message user to enter valid input
+    console.log(
+      "second question input:\n",
+      "user input void;\n",
+      "prompt user to enter valid input"
+    ); // log to console
+  } else if (
+    bodyNumber === "3" ||
+    bodyNumber === "three" ||
+    bodyNumber === "Three"
+  ) {
+    // set condition for insect user input
+    message.innerHTML =
+      "Amazing! <br/> Your specimen is an insect for sure! Now we can start classifying what type of insect <br/><br/>does your specimen have wings?";
+    // message insect and third question to user
+    console.log(
+      "second question input:\n",
+      "user input is insect;\n",
+      "message user is insect"
+    ); // log to console
+    isBody = true; // reassign 'switch' boolean 'off' for second question
+  } else {
+    // set condition for not insect user input
+    message.innerHTML =
+      "Your specimen is not an insect. <br/> <br/>it is most likely another type of arthropod.";
+    // message not insect to user
+    console.log(
+      "second question input:\n",
+      "user input is not insect;\n",
+      "message user is not insect"
+    ); // log to console
+  }
+  return isBody; // return 'switch' boolean value
+}
+
+// end of questionnaire section (for now)
+
+//end of TAKE THREE
+
+// (failed) TAKE TWO:
+
 /* ok ok so i made a webpage for classifying insects and incidentally it is full of Bugs... 
 this is a perfect opportunity to practice debugging, linting etc. 
 so i am going to leave two copies of the original code below, one with comments, one without
@@ -9,7 +187,7 @@ and try to rewrite the whole thing - error free and with better cleaner syntax! 
 
 // intro section
 // this is the page load up; contains a short description for user and a start button to begin questionnaire
-
+/*
 const startBtn = document.querySelector(".start"); // declare first button. so far so good
 const panel = document.querySelector(".panel"); // declare questionnaire panel
 let message = document.querySelector(".message"); // declare message paragraph for user instructions
@@ -114,11 +292,13 @@ if (isLegs === true) {
       );
     }
   });
-}
+} */
 
 // end of second question
 
 // end of questionnaire section
+
+// end of (failed) TAKE TWO
 
 // first copy of original; no comments for easy run comparison:
 
